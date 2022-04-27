@@ -1,4 +1,4 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => { console.log("State is changed") }
 
 let idMessageCounter = 1;
 let idPostCounter = 1;
@@ -32,7 +32,7 @@ let state = {
 
 window.state = state
 
-export let addPost = () => {
+export const addPost = () => {
     let newPost = {
         id: idPostCounter++,
         message: state.profilePage.newPostText,
@@ -43,9 +43,13 @@ export let addPost = () => {
     rerenderEntireTree(state)
 }
 
-export let updateNewPostText = (postMessage) => {
+export const updateNewPostText = (postMessage) => {
     state.profilePage.newPostText = postMessage
     rerenderEntireTree(state)
+}
+
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer
 }
 
 export let addMessage = () => {
