@@ -28,39 +28,44 @@ let store = {
             newMessageText: "new message"
         }
     },
+    _callSubscriber() {
+        console.log("State is changed")
+    },
     getState() {
         return this._state
-    },
-    _callSubscriber() { console.log("State is changed") },
-    addPost() {
-        let newPost = {
-            id: idPostCounter++,
-            message: this._state.profilePage.newPostText,
-            likesCounter: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ""
-        this._callSubscriber(this._state)
-    },
-    updateNewPostText(postMessage) {
-        this._state.profilePage.newPostText = postMessage
-        this._callSubscriber(this._state)
     },
     subscribe(observer) {
         this._callSubscriber = observer
     },
-    addMessage() {
-        let newMessage = {
-            id: idMessageCounter++,
-            message: this._state.dialogsPage.newMessageText
+    dispatch(action) {
+        if (action.type === "addPost") {
+            let newPost = {
+                id: idPostCounter++,
+                message: this._state.profilePage.newPostText,
+                likesCounter: 0
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ""
+            this._callSubscriber(this._state)
         }
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageText = ""
-        this._callSubscriber(this._state)
-    },
-    updateNewMessageText(text) {
-        this._state.dialogsPage.newMessageText = text
-        this._callSubscriber(this._state)
+        if (action.type === "updateNewPostText") {
+            debugger
+            this._state.profilePage.newPostText = action.text
+            this._callSubscriber(this._state)
+        }
+        if (action.type === "addMessage") {
+            let newMessage = {
+                id: idMessageCounter++,
+                message: this._state.dialogsPage.newMessageText
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ""
+            this._callSubscriber(this._state)
+        }
+        if (action.type === "updateNewMessageText") {
+            this._state.dialogsPage.newMessageText = action.text
+            this._callSubscriber(this._state)
+        }
     }
 }
 
