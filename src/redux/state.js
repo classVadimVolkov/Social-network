@@ -2,6 +2,11 @@ let idMessageCounter = 1;
 let idPostCounter = 1;
 let idDialogCounter = 1;
 
+const ADD_POST = "addPost";
+const UPDATE_NEW_POST_TEXT = "updateNewPostText";
+const ADD_MESSAGE = "addMessage";
+const UPDATE_NEW_MESSAGE_TEXT = "updateNewMessageText";
+
 let store = {
     _state: {
         profilePage: {
@@ -38,7 +43,7 @@ let store = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === "addPost") {
+        if (action.type === ADD_POST) {
             let newPost = {
                 id: idPostCounter++,
                 message: this._state.profilePage.newPostText,
@@ -48,12 +53,11 @@ let store = {
             this._state.profilePage.newPostText = ""
             this._callSubscriber(this._state)
         }
-        if (action.type === "updateNewPostText") {
-            debugger
+        if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.text
             this._callSubscriber(this._state)
         }
-        if (action.type === "addMessage") {
+        if (action.type === ADD_MESSAGE) {
             let newMessage = {
                 id: idMessageCounter++,
                 message: this._state.dialogsPage.newMessageText
@@ -62,12 +66,27 @@ let store = {
             this._state.dialogsPage.newMessageText = ""
             this._callSubscriber(this._state)
         }
-        if (action.type === "updateNewMessageText") {
+        if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
             this._state.dialogsPage.newMessageText = action.text
             this._callSubscriber(this._state)
         }
     }
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST})
+
+export const updateNewPostTextActionCreator = (text) => ({
+    type: UPDATE_NEW_POST_TEXT,
+    text: text
+})
+
+export const addMessageActionCreator = () => ({type: ADD_MESSAGE})
+
+
+export const updateNewMessageTextActionCreator = (text) => ({
+    type: UPDATE_NEW_MESSAGE_TEXT,
+    text: text
+})
 
 window.store = store
 
