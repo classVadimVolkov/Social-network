@@ -1,20 +1,16 @@
-let idMessageCounter = 1;
-let idPostCounter = 1;
-let idDialogCounter = 1;
+import profileReducer from "./ProfileReducer";
+import dialogsReducer from "./DialogsReducer";
 
-const ADD_POST = "addPost";
-const UPDATE_NEW_POST_TEXT = "updateNewPostText";
-const ADD_MESSAGE = "addMessage";
-const UPDATE_NEW_MESSAGE_TEXT = "updateNewMessageText";
+let idDialogCounter = 1;
 
 let store = {
     _state: {
         profilePage: {
             posts: [
-                {id: idPostCounter++, message: "How are you?", likesCounter: 13},
-                {id: idPostCounter++, message: "It's my first message", likesCounter: 23}
+                {id: 1, message: "How are you?", likesCounter: 13},
+                {id: 2, message: "It's my first message", likesCounter: 23}
             ],
-            newPostText: "new post"
+            newPostText: ""
         },
         dialogsPage: {
             dialogs: [
@@ -26,11 +22,11 @@ let store = {
                 {id: idDialogCounter++, name: "Valera"}
             ],
             messages: [
-                {id: idMessageCounter++, message: "Hi!"},
-                {id: idMessageCounter++, message: "How are you"},
-                {id: idMessageCounter++, message: "Yo!"}
+                {id: 1, message: "Hi!"},
+                {id: 2, message: "How are you"},
+                {id: 3, message: "Yo!"}
             ],
-            newMessageText: "new message"
+            newMessageText: ""
         }
     },
     _callSubscriber() {
@@ -43,50 +39,11 @@ let store = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost = {
-                id: idPostCounter++,
-                message: this._state.profilePage.newPostText,
-                likesCounter: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ""
-            this._callSubscriber(this._state)
-        }
-        if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.text
-            this._callSubscriber(this._state)
-        }
-        if (action.type === ADD_MESSAGE) {
-            let newMessage = {
-                id: idMessageCounter++,
-                message: this._state.dialogsPage.newMessageText
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ""
-            this._callSubscriber(this._state)
-        }
-        if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.text
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._callSubscriber(this._state)
     }
 }
-
-export const addPostActionCreator = () => ({type: ADD_POST})
-
-export const updateNewPostTextActionCreator = (text) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    text: text
-})
-
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE})
-
-
-export const updateNewMessageTextActionCreator = (text) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    text: text
-})
 
 window.store = store
 
