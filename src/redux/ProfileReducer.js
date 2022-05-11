@@ -1,8 +1,16 @@
 const ADD_POST = "addPost";
 const UPDATE_NEW_POST_TEXT = "updateNewPostText";
-let idPostCounter = 3;
+let idPostCounter = 1;
 
-const profileReducer = (state, action) => {
+let initialState = {
+    posts: [
+        {id: idPostCounter++, message: "How are you?", likesCounter: 13},
+        {id: idPostCounter++, message: "It's my first message", likesCounter: 23}
+    ],
+    newPostText: ""
+}
+
+const profileReducer = (state = initialState, action) => {
     if (action.type === ADD_POST) {
         let newPost = {
             id: idPostCounter++,

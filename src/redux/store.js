@@ -1,7 +1,6 @@
 import profileReducer from "./ProfileReducer";
 import dialogsReducer from "./DialogsReducer";
-
-let idDialogCounter = 1;
+import sidebarReducer from "./SidebarReducer";
 
 let store = {
     _state: {
@@ -14,12 +13,12 @@ let store = {
         },
         dialogsPage: {
             dialogs: [
-                {id: idDialogCounter++, name: "Dimych"},
-                {id: idDialogCounter++, name: "Andrew"},
-                {id: idDialogCounter++, name: "Sveta"},
-                {id: idDialogCounter++, name: "Sasha"},
-                {id: idDialogCounter++, name: "Viktor"},
-                {id: idDialogCounter++, name: "Valera"}
+                {id: 1, name: "Dimych"},
+                {id: 2, name: "Andrew"},
+                {id: 3, name: "Sveta"},
+                {id: 4, name: "Sasha"},
+                {id: 5, name: "Viktor"},
+                {id: 6, name: "Valera"}
             ],
             messages: [
                 {id: 1, message: "Hi!"},
@@ -27,7 +26,8 @@ let store = {
                 {id: 3, message: "Yo!"}
             ],
             newMessageText: ""
-        }
+        },
+        sidebar: {}
     },
     _callSubscriber() {
         console.log("State is changed")
@@ -41,6 +41,7 @@ let store = {
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
         this._callSubscriber(this._state)
     }
 }
