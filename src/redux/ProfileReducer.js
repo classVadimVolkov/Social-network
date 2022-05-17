@@ -11,20 +11,23 @@ let initialState = {
 }
 
 const profileReducer = (state = initialState, action) => {
+    let stateCopy = {...state}
+
     if (action.type === ADD_POST) {
         let newPost = {
             id: idPostCounter++,
             message: state.newPostText,
             likesCounter: 0
         }
-        state.posts.push(newPost)
-        state.newPostText = ""
+        stateCopy.posts = [...state.posts]
+        stateCopy.posts.push(newPost)
+        stateCopy.newPostText = ""
     }
     if (action.type === UPDATE_NEW_POST_TEXT) {
-        state.newPostText = action.text
+        stateCopy.newPostText = action.text
     }
 
-    return state
+    return stateCopy
 }
 
 export const addPostActionCreator = () => ({type: ADD_POST})
