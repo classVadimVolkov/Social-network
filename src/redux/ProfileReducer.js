@@ -1,13 +1,13 @@
-const ADD_POST = "addPost";
-const UPDATE_NEW_POST_TEXT = "updateNewPostText";
+const ADD_POST = 'addPost';
+const UPDATE_NEW_POST_TEXT = 'updateNewPostText';
 let idPostCounter = 1;
 
 let initialState = {
     posts: [
-        {id: idPostCounter++, message: "How are you?", likesCounter: 13},
+        {id: idPostCounter++, message: 'How are you?', likesCounter: 13},
         {id: idPostCounter++, message: "It's my first message", likesCounter: 23}
     ],
-    newPostText: ""
+    newPostText: ''
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -19,7 +19,7 @@ const profileReducer = (state = initialState, action) => {
         }
         return {
             ...state,
-            newPostText: "",
+            newPostText: '',
             posts: [...state.posts, newPost],
         }
     }
