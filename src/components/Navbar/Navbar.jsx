@@ -13,6 +13,9 @@ const Navbar = () => {
             <div>
                 <NavLink to="/dialogs" className={highlight}>Messages</NavLink>
             </div>
+            <div>
+                <NavLink to="/users" className={highlight}>Users</NavLink>
+            </div>
             <div className={style.item}>
                 <NavLink to="/news" className={highlight}>News</NavLink>
             </div>
