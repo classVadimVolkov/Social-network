@@ -1,5 +1,4 @@
-const ADD_MESSAGE = 'addMessage';
-const UPDATE_NEW_MESSAGE_TEXT = 'updateNewMessageText';
+const SEND_MESSAGE = 'SEND_MESSAGE';
 let idMessageCounter = 1;
 let idDialogCounter = 1;
 
@@ -16,37 +15,25 @@ let initialState = {
         {id: idMessageCounter++, message: 'Hi!'},
         {id: idMessageCounter++, message: 'How are you'},
         {id: idMessageCounter++, message: 'Yo!'}
-    ],
-    newMessageText: ''
+    ]
 }
 
 export const dialogsReducer = (state = initialState, action) => {
-    if (action.type === ADD_MESSAGE) {
-        let newMessage = {
-            id: idMessageCounter++,
-            message: state.newMessageText
-        }
-        return {
-            ...state,
-            newMessageText: '',
-            messages: [...state.messages, newMessage]
-        }
+    switch (action.type) {
+        case SEND_MESSAGE:
+            let newMessage = {
+                id: idMessageCounter++,
+                message: action.newMessageBody
+            }
+            return {
+                ...state,
+                messages: [...state.messages, newMessage]
+            }
+        default:
+            return state
     }
-    if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-        return {
-            ...state,
-            newMessageText: action.text
-        }
-    }
-
-    return state
 }
 
-export const sendMessageCreator = () => ({type: ADD_MESSAGE})
-
-export const updateNewMessageBodyCreator = (body) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    text: body
-})
+export const sendMessageCreator = (newMessageBody) => ({type: SEND_MESSAGE, newMessageBody})
 
 export default dialogsReducer
