@@ -24,6 +24,7 @@ class UsersAPIComponent extends React.Component {
     }
 
     render() {
+        console.log('Render')
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Users
@@ -54,6 +55,7 @@ class UsersAPIComponent extends React.Component {
 }*/
 
 let mapStateToProps = (state) => {
+    console.log('map state to props')
     return (
         {
             users: getUsers(state),
