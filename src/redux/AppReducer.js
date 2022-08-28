@@ -1,6 +1,6 @@
 import {getAuthUserData} from "./AuthReducer";
 
-const SET_INITIALIZED = 'SET_INITIALIZED'
+const SET_INITIALIZED = '/AppReducer/SET_INITIALIZED'
 
 let initialState = {
     initialized: false

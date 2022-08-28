@@ -1,4 +1,4 @@
-const SEND_MESSAGE = 'SEND_MESSAGE';
+const SEND_MESSAGE = '/DialogsReducer/SEND_MESSAGE';
 let idMessageCounter = 1;
 let idDialogCounter = 1;
 
