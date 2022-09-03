@@ -1,21 +1,19 @@
-import React from "react";
-import style from "./Paginator.module.css";
+import React, {useState} from "react";
+import {Pagination} from "@mui/material";
 
 let Paginator = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
-    let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-        if (i === 20) break;
+    const [page, setPage] = useState(props.currentPage)
+
+    const handleChange = (event, value) => {
+        setPage(value)
+        props.onPageChanged(value)
     }
 
     return (
         <div>
-            {pages.map(p => {
-                return <span className={props.currentPage === p ? style.selectedPage : undefined}
-                             onClick={(e) => props.onPageChanged(p)}> {p}</span>
-            })}
+            <Pagination count={pagesCount} page={page} showFirstButton showLastButton onChange={handleChange}/>
         </div>
     )
 }
