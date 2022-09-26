@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./Users.module.css";
-import userPhoto from "../../asserts/images/userEmptyAvatar.png";
+import emptyUserPhoto from "../../asserts/images/userEmptyAvatar.png";
 import {NavLink} from "react-router-dom";
 import Paginator from "../common/Paginator/Paginator";
 
@@ -18,7 +18,7 @@ let Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}) 
                         <NavLink to={'/profile/' + u.id}>
                         <img src={u.photos.small != null
                             ? u.photos.small
-                            : userPhoto}/>
+                            : emptyUserPhoto}/>
                         </NavLink>
                     </div>
                     <div>
